@@ -4,9 +4,7 @@ import { getHotelById, deleteHotel } from "../api/hotels";
 import ConfirmModal from "../components/ConfirmModal";
 
 const IMAGE_BASE = "http://localhost:3000";
-const PLACEHOLDER = "https://placehold.co/800x400/e2e8f0/94a3b8?text=No+Image";
-
-const MAP_ZOOM = 14;
+const PLACEHOLDER = "https://placehold.co/1200x600/e2e8f0/64748b?text=No+Image";
 
 function buildMapUrl(lat, lng) {
     return `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01},${lat - 0.01},${lng + 0.01},${lat + 0.01}&layer=mapnik&marker=${lat},${lng}`;
@@ -49,7 +47,7 @@ function HotelDetail() {
         return (
             <div className="state-center">
                 <div className="spinner" />
-                <p>Loading hotel…</p>
+                <p>Loading hotel details…</p>
             </div>
         );
     }
@@ -69,30 +67,61 @@ function HotelDetail() {
     return (
         <div className="page">
             <div className="detail-back">
-                <Link to="/" className="btn btn-outline">← Back</Link>
+                <Link to="/" className="btn btn-outline">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}>
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Hotels
+                </Link>
             </div>
 
             <div className="detail-card">
-                <img
-                    src={imgSrc}
-                    alt={hotel.title}
-                    className="detail-img"
-                    onError={(e) => { e.target.src = PLACEHOLDER; }}
-                />
+                <div className="detail-hero">
+                    <img
+                        src={imgSrc}
+                        alt={hotel.title}
+                        className="detail-img"
+                        onError={(e) => { e.target.src = PLACEHOLDER; }}
+                    />
+                    <div className="detail-price-tag">
+                        <span className="amount">${Number(hotel.price).toFixed(2)}</span>
+                        <span className="label">per night</span>
+                    </div>
+                </div>
 
                 <div className="detail-body">
                     <div className="detail-header">
                         <h1>{hotel.title}</h1>
-                        <span className="detail-price">${Number(hotel.price).toFixed(2)} <small>/night</small></span>
+                        {hasLocation && (
+                            <div className="detail-location">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                Latitude: {Number(hotel.latitude).toFixed(6)}, Longitude: {Number(hotel.longitude).toFixed(6)}
+                            </div>
+                        )}
                     </div>
 
-                    {hotel.description && (
+                    {hotel.description ? (
                         <p className="detail-desc">{hotel.description}</p>
+                    ) : (
+                        <p className="detail-desc" style={{ fontStyle: 'italic', color: 'var(--color-muted)' }}>
+                            No description available for this hotel.
+                        </p>
                     )}
 
                     {hasLocation && (
-                        <div className="detail-location">
-                            <span>📍 Lat: {Number(hotel.latitude).toFixed(6)}, Lng: {Number(hotel.longitude).toFixed(6)}</span>
+                        <div className="detail-map-section">
+                            <h3>Location Map</h3>
+                            <div className="detail-map">
+                                <iframe
+                                    title="Hotel location map"
+                                    src={buildMapUrl(Number(hotel.latitude), Number(hotel.longitude))}
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                />
+                            </div>
                             <a
                                 href={`https://www.google.com/maps?q=${hotel.latitude},${hotel.longitude}`}
                                 target="_blank"
@@ -105,26 +134,15 @@ function HotelDetail() {
                     )}
 
                     <div className="detail-actions">
-                        <Link to={`/hotels/${hotel.id}/edit`} className="btn btn-secondary">Edit</Link>
-                        <button className="btn btn-danger" onClick={() => setShowConfirm(true)}>Delete</button>
+                        <Link to={`/hotels/${hotel.id}/edit`} className="btn btn-secondary">Edit Hotel</Link>
+                        <button className="btn btn-danger" onClick={() => setShowConfirm(true)}>Delete Hotel</button>
                     </div>
                 </div>
-
-                {hasLocation && (
-                    <div className="detail-map">
-                        <iframe
-                            title="Hotel location map"
-                            src={buildMapUrl(Number(hotel.latitude), Number(hotel.longitude))}
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        />
-                    </div>
-                )}
             </div>
 
             {showConfirm && (
                 <ConfirmModal
-                    message={`Delete "${hotel.title}"? This cannot be undone.`}
+                    message={`Are you sure you want to delete "${hotel.title}"? This action cannot be undone.`}
                     onConfirm={handleDelete}
                     onCancel={() => setShowConfirm(false)}
                 />

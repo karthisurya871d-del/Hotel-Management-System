@@ -44,7 +44,23 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         }
     };
 
-    const validate = () => {
+    const parseCoordinate = (coordStr) => {
+        if (!coordStr) return "";
+        let str = String(coordStr).trim();
+        if (!isNaN(str) && str !== "") return str;
+        
+        // Match numbers optionally followed by degree symbol and N/S/E/W
+        const match = str.match(/([+-]?\d+\.?\d*)\s*°?\s*([NSEW])?/i);
+        if (match) {
+            let num = parseFloat(match[1]);
+            const dir = match[2] ? match[2].toUpperCase() : '';
+            if (dir === 'S' || dir === 'W') num = -num;
+            return String(num);
+        }
+        return str;
+    };
+
+    const validate = (parsedLat, parsedLng) => {
         const errs = [];
         if (!form.title.trim()) errs.push("Title is required.");
         if (!form.price) {
@@ -52,14 +68,18 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         } else if (isNaN(form.price) || Number(form.price) <= 0) {
             errs.push("Price must be a positive number.");
         }
-        if (form.latitude && isNaN(form.latitude)) errs.push("Latitude must be a valid number.");
-        if (form.longitude && isNaN(form.longitude)) errs.push("Longitude must be a valid number.");
+        if (parsedLat && isNaN(parsedLat)) errs.push("Latitude must be a valid number.");
+        if (parsedLng && isNaN(parsedLng)) errs.push("Longitude must be a valid number.");
         return errs;
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const errs = validate();
+        
+        const parsedLat = parseCoordinate(form.latitude);
+        const parsedLng = parseCoordinate(form.longitude);
+
+        const errs = validate(parsedLat, parsedLng);
         if (errs.length > 0) {
             setValidationErrors(errs);
             return;
@@ -69,8 +89,8 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         const formData = new FormData();
         formData.append("title",       form.title.trim());
         formData.append("description", form.description);
-        formData.append("latitude",    form.latitude);
-        formData.append("longitude",   form.longitude);
+        formData.append("latitude",    parsedLat);
+        formData.append("longitude",   parsedLng);
         formData.append("price",       form.price);
         if (imageFile) formData.append("image", imageFile);
 
