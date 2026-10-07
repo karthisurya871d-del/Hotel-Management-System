@@ -4,6 +4,7 @@ import HotelList from "./pages/HotelList";
 import HotelDetail from "./pages/HotelDetail";
 import AddHotel from "./pages/AddHotel";
 import EditHotel from "./pages/EditHotel";
+import Footer from "./components/Footer";
 
 function App() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -33,7 +34,6 @@ function App() {
 
                     <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
                         <NavLink to="/" end onClick={() => setMenuOpen(false)}>Home</NavLink>
-                        <NavLink to="/" onClick={() => setMenuOpen(false)}>Hotels</NavLink>
                         <Link to="/hotels/new" className="navbar-cta" onClick={() => setMenuOpen(false)}>
                             + Add Hotel
                         </Link>
@@ -48,6 +48,7 @@ function App() {
                 <Route path="/hotels/:id/edit" element={<EditHotel />} />
                 <Route path="*"              element={<div className="page"><h2 style={{padding:"4rem",textAlign:"center"}}>404 — Page not found</h2></div>} />
             </Routes>
+            <Footer />
         </BrowserRouter>
     );
 }

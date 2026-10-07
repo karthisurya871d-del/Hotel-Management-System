@@ -132,7 +132,6 @@ function HotelList() {
                                 Clear filters
                             </button>
                         )}
-                        <Link to="/hotels/new" className="btn btn-primary">+ Add Hotel</Link>
                     </div>
                 </div>
 
