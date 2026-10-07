@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 const IMAGE_BASE = "http://localhost:3000";
-
 function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
     const navigate = useNavigate();
-
     const [form, setForm] = useState({
         title: "",
         description: "",
@@ -16,7 +13,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [validationErrors, setValidationErrors] = useState([]);
-
     useEffect(() => {
         if (initialData) {
             setForm({
@@ -31,11 +27,9 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
             }
         }
     }, [initialData]);
-
     const handleChange = (e) => {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -43,13 +37,10 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
             setImagePreview(URL.createObjectURL(file));
         }
     };
-
     const parseCoordinate = (coordStr) => {
         if (!coordStr) return "";
         let str = String(coordStr).trim();
         if (!isNaN(str) && str !== "") return str;
-        
-        // Match numbers optionally followed by degree symbol and N/S/E/W
         const match = str.match(/([+-]?\d+\.?\d*)\s*°?\s*([NSEW])?/i);
         if (match) {
             let num = parseFloat(match[1]);
@@ -59,7 +50,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         }
         return str;
     };
-
     const validate = (parsedLat, parsedLng) => {
         const errs = [];
         if (!form.title.trim()) errs.push("Title is required.");
@@ -72,20 +62,16 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         if (parsedLng && isNaN(parsedLng)) errs.push("Longitude must be a valid number.");
         return errs;
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        
         const parsedLat = parseCoordinate(form.latitude);
         const parsedLng = parseCoordinate(form.longitude);
-
         const errs = validate(parsedLat, parsedLng);
         if (errs.length > 0) {
             setValidationErrors(errs);
             return;
         }
         setValidationErrors([]);
-
         const formData = new FormData();
         formData.append("title",       form.title.trim());
         formData.append("description", form.description);
@@ -93,10 +79,8 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         formData.append("longitude",   parsedLng);
         formData.append("price",       form.price);
         if (imageFile) formData.append("image", imageFile);
-
         onSubmit(formData);
     };
-
     return (
         <form className="hotel-form" onSubmit={handleSubmit} noValidate>
             {validationErrors.length > 0 && (
@@ -106,13 +90,11 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
                     </ul>
                 </div>
             )}
-
             {error && (
                 <div className="alert alert-error">
                     {typeof error === "string" ? error : error.message || "Something went wrong."}
                 </div>
             )}
-
             <div className="form-group">
                 <label htmlFor="title">Title <span className="required">*</span></label>
                 <input
@@ -126,7 +108,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
                     maxLength={150}
                 />
             </div>
-
             <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea
@@ -139,7 +120,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
                     placeholder="Describe the hotel..."
                 />
             </div>
-
             <div className="form-row">
                 <div className="form-group">
                     <label htmlFor="latitude">Latitude</label>
@@ -166,7 +146,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
                     />
                 </div>
             </div>
-
             <div className="form-group">
                 <label htmlFor="price">Price per night (USD) <span className="required">*</span></label>
                 <input
@@ -181,7 +160,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
                     step="0.01"
                 />
             </div>
-
             <div className="form-group">
                 <label htmlFor="image">Hotel Image</label>
                 <input
@@ -198,7 +176,6 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
                     </div>
                 )}
             </div>
-
             <div className="form-actions">
                 <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>
                     Cancel
@@ -210,5 +187,4 @@ function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
         </form>
     );
 }
-
 export default HotelForm;

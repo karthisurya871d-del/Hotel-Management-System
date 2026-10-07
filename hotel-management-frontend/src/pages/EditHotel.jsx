@@ -2,16 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import HotelForm from "../components/HotelForm";
 import { getHotelById, updateHotel } from "../api/hotels";
-
 function EditHotel() {
     const { id } = useParams();
     const navigate = useNavigate();
-
     const [hotel, setHotel] = useState(null);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(null);
     const [submitError, setSubmitError] = useState(null);
-
     useEffect(() => {
         const load = async () => {
             try {
@@ -23,7 +20,6 @@ function EditHotel() {
         };
         load();
     }, [id]);
-
     const handleSubmit = async (formData) => {
         setLoading(true);
         setSubmitError(null);
@@ -36,7 +32,6 @@ function EditHotel() {
             setLoading(false);
         }
     };
-
     if (fetchError) {
         return (
             <div className="page page-narrow">
@@ -44,7 +39,6 @@ function EditHotel() {
             </div>
         );
     }
-
     if (!hotel) {
         return (
             <div className="state-center">
@@ -53,7 +47,6 @@ function EditHotel() {
             </div>
         );
     }
-
     return (
         <div className="page page-narrow">
             <h1 className="page-title">Edit Hotel</h1>
@@ -67,5 +60,4 @@ function EditHotel() {
         </div>
     );
 }
-
 export default EditHotel;

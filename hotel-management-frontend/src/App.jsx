@@ -5,10 +5,8 @@ import HotelDetail from "./pages/HotelDetail";
 import AddHotel from "./pages/AddHotel";
 import EditHotel from "./pages/EditHotel";
 import Footer from "./components/Footer";
-
 function App() {
     const [menuOpen, setMenuOpen] = useState(false);
-
     return (
         <BrowserRouter>
             <nav className="navbar">
@@ -23,7 +21,6 @@ function App() {
                         </svg>
                         STAYORA
                     </Link>
-
                     <button
                         className="navbar-toggle"
                         onClick={() => setMenuOpen(o => !o)}
@@ -31,7 +28,6 @@ function App() {
                     >
                         <span /><span /><span />
                     </button>
-
                     <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
                         <NavLink to="/" end onClick={() => setMenuOpen(false)}>Home</NavLink>
                         <Link to="/hotels/new" className="navbar-cta" onClick={() => setMenuOpen(false)}>
@@ -40,7 +36,6 @@ function App() {
                     </div>
                 </div>
             </nav>
-
             <Routes>
                 <Route path="/"               element={<HotelList />} />
                 <Route path="/hotels/new"     element={<AddHotel />} />
@@ -52,5 +47,4 @@ function App() {
         </BrowserRouter>
     );
 }
-
 export default App;

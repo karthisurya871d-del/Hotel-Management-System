@@ -4,29 +4,23 @@ import { getHotels, deleteHotel } from "../api/hotels";
 import HotelCard from "../components/HotelCard";
 import Pagination from "../components/Pagination";
 import ConfirmModal from "../components/ConfirmModal";
-
 function HotelList() {
     const location = useLocation();
-
     const [hotels, setHotels] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     const [search, setSearch] = useState("");
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
-
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [total, setTotal] = useState(0);
-
     const [deleteTarget, setDeleteTarget] = useState(null);
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState(
         location.state?.added ? "Hotel added successfully!" :
         location.state?.deleted ? "Hotel deleted." : ""
     );
-
     const fetchHotels = useCallback(async () => {
         setLoading(true);
         setError(null);
@@ -41,31 +35,26 @@ function HotelList() {
             setLoading(false);
         }
     }, [search, minPrice, maxPrice, page]);
-
     useEffect(() => {
         fetchHotels();
     }, [fetchHotels]);
-
     useEffect(() => {
         if (successMsg) {
             const t = setTimeout(() => setSuccessMsg(""), 3000);
             return () => clearTimeout(t);
         }
     }, [successMsg]);
-
     const handleSearch = (e) => {
         e.preventDefault();
         setPage(1);
         fetchHotels();
     };
-
     const handleClearFilters = () => {
         setSearch("");
         setMinPrice("");
         setMaxPrice("");
         setPage(1);
     };
-
     const handleDeleteConfirm = async () => {
         if (!deleteTarget) return;
         setDeleteLoading(true);
@@ -80,16 +69,13 @@ function HotelList() {
             setDeleteLoading(false);
         }
     };
-
     return (
         <>
-            {/* Hero */}
             <section className="hero">
                 <div className="hero-overlay" />
                 <div className="hero-content">
                     <h1 className="hero-title">Find Your Perfect Stay</h1>
                     <p className="hero-sub">Discover comfortable hotels and unforgettable experiences.</p>
-
                     <form className="hero-search" onSubmit={handleSearch}>
                         <input
                             type="text"
@@ -118,8 +104,6 @@ function HotelList() {
                     </form>
                 </div>
             </section>
-
-            {/* Listing */}
             <main className="main">
                 <div className="listing-header">
                     <div>
@@ -134,10 +118,8 @@ function HotelList() {
                         )}
                     </div>
                 </div>
-
                 {successMsg && <div className="alert alert-success">{successMsg}</div>}
                 {error      && <div className="alert alert-error">{error}</div>}
-
                 {loading ? (
                     <div className="state-center">
                         <div className="spinner" />
@@ -163,10 +145,8 @@ function HotelList() {
                         ))}
                     </div>
                 )}
-
                 <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
             </main>
-
             {deleteTarget && (
                 <ConfirmModal
                     message={`Delete "${deleteTarget.title}"? This cannot be undone.`}
@@ -177,5 +157,4 @@ function HotelList() {
         </>
     );
 }
-
 export default HotelList;

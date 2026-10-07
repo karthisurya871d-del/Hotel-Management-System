@@ -2,23 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getHotelById, deleteHotel } from "../api/hotels";
 import ConfirmModal from "../components/ConfirmModal";
-
 const IMAGE_BASE = "http://localhost:3000";
 const PLACEHOLDER = "https://placehold.co/1200x600/e2e8f0/64748b?text=No+Image";
-
 function buildMapUrl(lat, lng) {
     return `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01},${lat - 0.01},${lng + 0.01},${lat + 0.01}&layer=mapnik&marker=${lat},${lng}`;
 }
-
 function HotelDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-
     const [hotel, setHotel] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showConfirm, setShowConfirm] = useState(false);
-
     useEffect(() => {
         const load = async () => {
             try {
@@ -32,7 +27,6 @@ function HotelDetail() {
         };
         load();
     }, [id]);
-
     const handleDelete = async () => {
         try {
             await deleteHotel(id);
@@ -42,7 +36,6 @@ function HotelDetail() {
             setShowConfirm(false);
         }
     };
-
     if (loading) {
         return (
             <div className="state-center">
@@ -51,7 +44,6 @@ function HotelDetail() {
             </div>
         );
     }
-
     if (error) {
         return (
             <div className="page">
@@ -60,10 +52,8 @@ function HotelDetail() {
             </div>
         );
     }
-
     const imgSrc = hotel.image ? `${IMAGE_BASE}${hotel.image}` : PLACEHOLDER;
     const hasLocation = hotel.latitude && hotel.longitude;
-
     return (
         <div className="page">
             <div className="detail-back">
@@ -74,7 +64,6 @@ function HotelDetail() {
                     Back to Hotels
                 </Link>
             </div>
-
             <div className="detail-card">
                 <div className="detail-hero">
                     <img
@@ -88,7 +77,6 @@ function HotelDetail() {
                         <span className="label">per night</span>
                     </div>
                 </div>
-
                 <div className="detail-body">
                     <div className="detail-header">
                         <h1>{hotel.title}</h1>
@@ -102,7 +90,6 @@ function HotelDetail() {
                             </div>
                         )}
                     </div>
-
                     {hotel.description ? (
                         <p className="detail-desc">{hotel.description}</p>
                     ) : (
@@ -110,7 +97,6 @@ function HotelDetail() {
                             No description available for this hotel.
                         </p>
                     )}
-
                     {hasLocation && (
                         <div className="detail-map-section">
                             <h3>Location Map</h3>
@@ -132,14 +118,12 @@ function HotelDetail() {
                             </a>
                         </div>
                     )}
-
                     <div className="detail-actions">
                         <Link to={`/hotels/${hotel.id}/edit`} className="btn btn-secondary">Edit Hotel</Link>
                         <button className="btn btn-danger" onClick={() => setShowConfirm(true)}>Delete Hotel</button>
                     </div>
                 </div>
             </div>
-
             {showConfirm && (
                 <ConfirmModal
                     message={`Are you sure you want to delete "${hotel.title}"? This action cannot be undone.`}
@@ -150,5 +134,4 @@ function HotelDetail() {
         </div>
     );
 }
-
 export default HotelDetail;

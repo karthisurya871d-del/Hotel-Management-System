@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
-
 const IMAGE_BASE = "http://localhost:3000";
 const PLACEHOLDER = "https://placehold.co/600x400/e2e8f0/64748b?text=No+Image";
-
 function HotelCard({ hotel, onDelete }) {
     const imgSrc = hotel.image ? `${IMAGE_BASE}${hotel.image}` : PLACEHOLDER;
-
     return (
         <article className="hotel-card">
             <div className="hotel-card-img-wrap">
@@ -19,10 +16,8 @@ function HotelCard({ hotel, onDelete }) {
                     ${Number(hotel.price).toFixed(2)} <small>/night</small>
                 </div>
             </div>
-            
             <div className="hotel-card-body">
                 <h3 className="hotel-card-title">{hotel.title}</h3>
-                
                 {(hotel.latitude && hotel.longitude) && (
                     <div className="hotel-card-location">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -32,11 +27,9 @@ function HotelCard({ hotel, onDelete }) {
                         {Number(hotel.latitude).toFixed(4)}, {Number(hotel.longitude).toFixed(4)}
                     </div>
                 )}
-                
                 <p className="hotel-card-desc">
                     {hotel.description || "No description provided."}
                 </p>
-                
                 <div className="hotel-card-actions">
                     <Link to={`/hotels/${hotel.id}`} className="btn btn-outline">View Details</Link>
                     <Link to={`/hotels/${hotel.id}/edit`} className="btn btn-secondary">Edit</Link>
@@ -46,5 +39,4 @@ function HotelCard({ hotel, onDelete }) {
         </article>
     );
 }
-
 export default HotelCard;

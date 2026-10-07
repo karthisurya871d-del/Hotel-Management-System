@@ -11,5 +11,4 @@ function ConfirmModal({ message, onConfirm, onCancel }) {
         </div>
     );
 }
-
 export default ConfirmModal;

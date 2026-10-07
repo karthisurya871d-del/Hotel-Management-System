@@ -1,11 +1,9 @@
 function Pagination({ page, totalPages, onPageChange }) {
     if (totalPages <= 1) return null;
-
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
     }
-
     return (
         <div className="pagination">
             <button
@@ -15,7 +13,6 @@ function Pagination({ page, totalPages, onPageChange }) {
             >
                 ← Prev
             </button>
-
             {pages.map((p) => (
                 <button
                     key={p}
@@ -25,7 +22,6 @@ function Pagination({ page, totalPages, onPageChange }) {
                     {p}
                 </button>
             ))}
-
             <button
                 className="btn btn-outline"
                 onClick={() => onPageChange(page + 1)}
@@ -36,5 +32,4 @@ function Pagination({ page, totalPages, onPageChange }) {
         </div>
     );
 }
-
 export default Pagination;
