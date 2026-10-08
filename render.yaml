@@ -2,7 +2,7 @@ services:
   # Backend Express API Service
   - type: web
     name: hotel-management-backend
-    env: node
+    runtime: node
     plan: free
     rootDir: hotel-management-backend
     buildCommand: npm install
@@ -16,8 +16,9 @@ services:
           property: connectionString
 
   # Frontend React (Vite) Static Site
-  - type: static
+  - type: web
     name: hotel-management-frontend
+    runtime: static
     rootDir: hotel-management-frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
