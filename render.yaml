@@ -16,10 +16,8 @@ services:
           property: connectionString
 
   # Frontend React (Vite) Static Site
-  - type: web
+  - type: static
     name: hotel-management-frontend
-    env: static
-    plan: free
     rootDir: hotel-management-frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
