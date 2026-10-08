@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/hotels";
+import { API_BASE_URL } from "./config";
+const BASE_URL = API_BASE_URL;
 export async function getHotels(params = {}) {
     const query = new URLSearchParams();
     if (params.search)   query.set("search",   params.search);

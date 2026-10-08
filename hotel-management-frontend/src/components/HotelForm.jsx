@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const IMAGE_BASE = "http://localhost:3000";
+import { IMAGE_BASE } from "../api/config";
 function HotelForm({ initialData, onSubmit, loading, error, isEdit }) {
     const navigate = useNavigate();
     const [form, setForm] = useState({

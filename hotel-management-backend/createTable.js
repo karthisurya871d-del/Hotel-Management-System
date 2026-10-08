@@ -1,7 +1,7 @@
 require("dotenv").config();
 const pool = require("./src/config/db");
 
-const createTable = async () => {
+const initTable = async () => {
     const query = `
         CREATE TABLE IF NOT EXISTS hotels (
             id SERIAL PRIMARY KEY,
@@ -14,15 +14,18 @@ const createTable = async () => {
         );
     `;
 
-    try {
-        await pool.query(query);
-        console.log("✅ hotels table created successfully!");
-    } catch (error) {
-        console.error("❌ Error creating table:", error.message);
-    } finally {
-        await pool.end();
-        console.log("Database connection closed.");
-    }
+    await pool.query(query);
+    console.log("✅ hotels table verified/created successfully!");
 };
 
-createTable();
+if (require.main === module) {
+    initTable()
+        .then(() => pool.end())
+        .then(() => console.log("Database connection closed."))
+        .catch((error) => {
+            console.error("❌ Error creating table:", error.message);
+            process.exit(1);
+        });
+}
+
+module.exports = { initTable };

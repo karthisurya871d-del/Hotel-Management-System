@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getHotelById, deleteHotel } from "../api/hotels";
 import ConfirmModal from "../components/ConfirmModal";
-const IMAGE_BASE = "http://localhost:3000";
+import { IMAGE_BASE } from "../api/config";
 const PLACEHOLDER = "https://placehold.co/1200x600/e2e8f0/64748b?text=No+Image";
 function buildMapUrl(lat, lng) {
     return `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01},${lat - 0.01},${lng + 0.01},${lat + 0.01}&layer=mapnik&marker=${lat},${lng}`;

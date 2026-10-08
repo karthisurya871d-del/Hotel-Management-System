@@ -19,7 +19,7 @@ function Footer() {
                         <h3>Contact</h3>
                         <ul>
                             <li>Email: support@stayora.com</li>
-                            <li>Phone: +1 (800) 123-4567</li>
+                            <li>Phone: 9876543210</li>
                         </ul>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const IMAGE_BASE = "http://localhost:3000";
+import { IMAGE_BASE } from "../api/config";
 const PLACEHOLDER = "https://placehold.co/600x400/e2e8f0/64748b?text=No+Image";
 function HotelCard({ hotel, onDelete }) {
     const imgSrc = hotel.image ? `${IMAGE_BASE}${hotel.image}` : PLACEHOLDER;
