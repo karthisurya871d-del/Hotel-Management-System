@@ -30,10 +30,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: hotel-management-backend
-          property: host
+        value: https://hotel-management-backend-jku0.onrender.com
 
 databases:
   # Managed PostgreSQL Database
