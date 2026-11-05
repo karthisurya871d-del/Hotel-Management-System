@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-11-03T21:28:08.712Z",
+  "tables": {
+    "hotels": [
+      {
+        "id": 1,
+        "image": "/uploads/1793728375988-407938.jpg",
+        "title": "gfcxzbn",
+        "description": "sztgyhjvb",
+        "latitude": "9.9350000",
+        "longitude": "79.0780000",
+        "price": "2344.76",
+        "location": "Paris, France",
+        "created_at": "2026-11-03T18:14:40.428Z",
+        "owner_id": null,
+        "approval_status": "approved",
+        "rejection_reason": null,
+        "approved_by": null,
+        "approved_at": null,
+        "updated_at": "2026-11-03T21:00:58.095Z"
+      }
+    ],
+    "users": [],
+    "password_reset_tokens": [],
+    "amenities": [
+      {
+        "id": 1,
+        "name": "Wi-Fi",
+        "icon": "wifi",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 2,
+        "name": "Parking",
+        "icon": "parking",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 3,
+        "name": "Swimming Pool",
+        "icon": "pool",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 4,
+        "name": "Restaurant",
+        "icon": "restaurant",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 5,
+        "name": "Air Conditioning",
+        "icon": "ac",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 6,
+        "name": "Gym",
+        "icon": "gym",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 7,
+        "name": "Spa",
+        "icon": "spa",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 8,
+        "name": "Room Service",
+        "icon": "room_service",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 9,
+        "name": "Bar",
+        "icon": "bar",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      },
+      {
+        "id": 10,
+        "name": "Laundry",
+        "icon": "laundry",
+        "created_at": "2026-11-03T21:00:58.095Z"
+      }
+    ],
+    "hotel_amenities": [],
+    "hotel_images": [],
+    "rooms": [],
+    "room_images": [],
+    "room_amenities": []
+  }
+}

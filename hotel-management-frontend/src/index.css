@@ -155,56 +155,65 @@ ul {
     z-index: 10;
     text-align: center;
     color: var(--color-light);
-    max-width: 800px;
+    max-width: 1050px;
     padding: 0 1.5rem;
     width: 100%;
 }
 .hero-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 .hero-sub {
-    font-size: 1.2rem;
-    margin-bottom: 2.5rem;
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
     opacity: 0.9;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 .hero-search {
     background: var(--color-surface);
-    padding: 1rem;
+    padding: 0.75rem 0.85rem;
     border-radius: var(--radius-lg);
     display: flex;
-    gap: 0.75rem;
-    box-shadow: var(--shadow-lg);
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
 }
 .hero-input {
-    flex: 1;
-    padding: 0.75rem 1rem;
+    width: 100%;
+    padding: 0.75rem 0.85rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--color-text);
     outline: none;
-    min-width: 150px;
+    box-sizing: border-box;
+    transition: border-color var(--transition);
 }
 .hero-input:focus {
     border-color: var(--color-primary);
 }
 .hero-input-sm {
-    max-width: 140px;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    max-width: none;
 }
 .hero-search-btn {
     background: var(--color-primary);
     color: var(--color-light);
     border: none;
-    padding: 0 2rem;
-    font-size: 1rem;
+    padding: 0.75rem 1.6rem;
+    font-size: 0.95rem;
     font-weight: 600;
     border-radius: var(--radius);
     cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: background var(--transition);
 }
 .hero-search-btn:hover {
@@ -786,5 +795,97 @@ textarea.form-control {
     .footer-links {
         flex-direction: column;
         gap: 2rem;
+    }
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(2, 132, 199, 0.25);
+    border: 1px solid rgba(2, 132, 199, 0.5);
+    color: #38bdf8;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.hero-input-group {
+    position: relative;
+    flex: 1.8;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+}
+
+.hero-input-group .search-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--color-muted);
+    pointer-events: none;
+}
+
+.hero-input-group .hero-input {
+    padding-left: 2.3rem;
+    width: 100%;
+}
+
+.hero-price-group {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1.4;
+    min-width: 0;
+}
+
+.price-separator {
+    color: var(--color-muted);
+    font-weight: 600;
+}
+
+.badge-subtitle {
+    display: inline-block;
+    background: #e0f2fe;
+    color: var(--color-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.hotel-card-location {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+}
+
+.hotel-card-location svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .hero-search {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+    .hero-input-group,
+    .hero-price-group,
+    .hero-search-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+    .hero-search-btn {
+        padding: 0.85rem;
     }
 }

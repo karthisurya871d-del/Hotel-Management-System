@@ -1,19 +1,26 @@
 {
     "name": "hotel-management-backend",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "STAYORA Hotel Booking Platform Backend",
+    "main": "src/server.js",
     "scripts": {
         "start": "node src/server.js",
-        "dev": "nodemon src/server.js"
+        "dev": "nodemon src/server.js",
+        "test": "node test/api.test.js",
+        "create-db": "node createDatabase.js",
+        "create-table": "node createTable.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "cookie-parser": "^1.4.7",
         "cors": "^2.8.6",
         "dotenv": "^18.0.5",
         "express": "^5.2.1",
+        "express-rate-limit": "^8.7.3",
+        "jsonwebtoken": "^9.0.3",
         "multer": "^2.4.0",
         "pg": "^8.23.1"
     },
