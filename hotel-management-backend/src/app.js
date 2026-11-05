@@ -15,14 +15,20 @@ const app = express();
 
 const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173,http://localhost:3000")
     .split(",")
-    .map(o => o.trim())
+    .map(o => o.trim().replace(/\/$/, ""))
     .filter(Boolean);
 
 app.use(cors({
     origin: (origin, callback) => {
-        
         if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) return callback(null, true);
+        const cleanOrigin = origin.replace(/\/$/, "");
+        if (
+            allowedOrigins.includes(cleanOrigin) ||
+            allowedOrigins.includes("*") ||
+            cleanOrigin.endsWith(".onrender.com")
+        ) {
+            return callback(null, true);
+        }
         callback(new Error(`CORS: origin '${origin}' not allowed.`));
     },
     credentials: true
